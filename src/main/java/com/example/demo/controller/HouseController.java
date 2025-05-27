@@ -135,4 +135,22 @@ public class HouseController {
         }
         return ResponseEntity.badRequest().body(Map.of("message", "房屋租赁状态更新失败"));
     }
+
+    @PutMapping("/{id}/restore")
+    public ResponseEntity<?> restoreHouse(@PathVariable Long id) {
+        houseService.restoreHouseById(id);
+        return ResponseEntity.ok().body(Map.of("message", "房源已恢复"));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteHouse(@PathVariable Long id) {
+        houseService.markHouseAsDeleted(id);
+        return ResponseEntity.ok().body(Map.of("message", "房源已删除"));
+    }
+
+    @DeleteMapping("/{id}/force")
+    public ResponseEntity<?> forceDeleteHouse(@PathVariable Long id) {
+        houseService.deleteHouseById(id);
+        return ResponseEntity.ok().body(Map.of("message", "房源已彻底删除"));
+    }
 }

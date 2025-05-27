@@ -34,6 +34,8 @@ public class House {
     @Embedded
     private Location location;
 
+    private Boolean isDeleted = false;
+
     public House() {
     }
 
@@ -171,6 +173,14 @@ public class House {
 
     public void setLocation(Location location) {
         this.location = location;
+    }
+
+    public Boolean getIsDeleted() {
+        return isDeleted;
+    }
+
+    public void setIsDeleted(Boolean isDeleted) {
+        this.isDeleted = isDeleted;
     }
 
 }

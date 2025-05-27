@@ -19,7 +19,10 @@ public class HouseService {
     private HouseRepository houseRepository;
 
     public List<House> findAll() {
-        return houseRepository.findAll();
+        // 只返回未被删除的房源
+        return houseRepository.findAll().stream()
+            .filter(house -> house.getIsDeleted() == null || !house.getIsDeleted())
+            .toList();
     }
 
     public House save(House house) {
@@ -139,5 +142,23 @@ public class HouseService {
             logger.error("更新房屋租赁状态失败: " + e.getMessage());
             return false;
         }
+    }
+
+    public void deleteHouseById(Long id) {
+        houseRepository.deleteById(id);
+    }
+
+    public void markHouseAsDeleted(Long id) {
+        House house = houseRepository.findById(id)
+            .orElseThrow(() -> new ResourceNotFoundException("House not found with id " + id));
+        house.setIsDeleted(true);
+        houseRepository.save(house);
+    }
+
+    public void restoreHouseById(Long id) {
+        House house = houseRepository.findById(id)
+            .orElseThrow(() -> new ResourceNotFoundException("House not found with id " + id));
+        house.setIsDeleted(false);
+        houseRepository.save(house);
     }
 }

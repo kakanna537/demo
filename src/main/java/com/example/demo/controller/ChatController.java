@@ -35,10 +35,10 @@ public class ChatController {
     /**
      * chat
      * @param requestBody 包含问题的请求体
-     * @return Map<String, String> 包含AI响应的Map
+     * @return Map<String, Object> 包含AI响应的Map
      */
     @PostMapping("/chat")
-    public Map<String, String> chat(@RequestBody Map<String, String> requestBody) {
+    public Map<String, Object> chat(@RequestBody Map<String, String> requestBody) {
         String question = requestBody.get("question");
         String userId = "default-user";
         return dsChatService.chat(userId, question);

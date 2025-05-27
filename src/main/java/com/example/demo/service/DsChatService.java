@@ -13,7 +13,7 @@ public interface DsChatService {
      * chat
      * @param userId 用户ID
      * @param question 问题内容
-     * @return Map<String, String> 包含AI响应的Map
+     * @return Map<String, Object> 包含AI响应的Map
      */
-    Map<String, String> chat(String userId, String question);
+    Map<String, Object> chat(String userId, String question);
 }
